@@ -3,13 +3,13 @@
 #include <stdarg.h>
 
 /**
- * print_strings - Prints strings then followed by nw line.
- * @separatoe: String that should be printed in bettween strings
- * @n: to tal number of strings passed in the the function.
- * @...: Variable number of strings that will be printed
+ * print_strings - Prints strings separated by a separator string.
+ * @separator: The string to print between the strings. Can be NULL.
+ * @n: The total number of strings passed to the function.
+ * @...: A variable number of strings to print.
  *
- * Description: If the seporator is NLL, it is not printed.
- * 	then if one of the string is NULL, (nil) is printed.
+ * Description: If the separator is NULL, it is not printed.
+ *              Then if one of the strings is NULL, "(nil)" is printed.
  */
 void print_strings(const char *separator, const unsigned int n, ...)
 {
@@ -23,13 +23,13 @@ void print_strings(const char *separator, const unsigned int n, ...)
 	{
 		str = va_arg(stringz, char *);
 
-		if(str == NULL)
+		if (str == NULL)
 			printf("(nil)");
-		else 
-			printf("%s",str);
+		else
+			printf("%s", str);
 
-		if (index != (n-1) && separator != NULL)
-			printf("%s",separator);
+		if (index != (n - 1) && separator != NULL)
+			printf("%s", separator);
 	}
 
 	printf("\n");
