@@ -7,6 +7,7 @@
  *
  * Return: number of words
  */
+
 int count_word(char *s)
 {
     int wrd, a, b;
@@ -26,6 +27,7 @@ int count_word(char *s)
     }
     return (b);
 }
+
 /**
  * **strtow - splits a string into words
  * @str: string to split
@@ -33,6 +35,7 @@ int count_word(char *s)
  * Return: pointer to an array of strings (Success)
  * or NULL (Error)
  */
+ 
 char **strtow(char *str)
 {
     char **flag, *tmp;
