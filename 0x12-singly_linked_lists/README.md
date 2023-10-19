@@ -124,3 +124,22 @@ This code defines a C function called `add_node_end`, which is used to add a new
    - The function returns the address of the head of the list (`*head`).
 
 This function is used to add a new node at the end of a linked list, and it takes care of memory allocation and copying the input string. If the list is initially empty, it updates the head pointer, and if not, it traverses the list to find the last node and adds the new node to the end.
+
+# 100-first.c
+
+This code demonstrates the use of a constructor function in C. A constructor function is a special function in C that is executed automatically before the `main` function of a program. In this code, the constructor function `print_message` is defined, and it will be called automatically when the program starts, before `main` is executed.
+
+Here's an explanation of the code:
+
+1. `#include <stdio.h>`: This line includes the standard input/output library, which is needed for functions like `printf`.
+
+2. `void __attribute__((constructor)) print_message(void);`: This line declares a constructor function called `print_message`. The `__attribute__((constructor))` is a GCC compiler-specific attribute that marks a function as a constructor. It tells the compiler to execute this function automatically before `main` is called.
+
+3. `void print_message(void)`: This is the definition of the `print_message` function. It is defined as a standard C function, and it has no parameters.
+
+4. Inside the `print_message` function:
+   - `printf` is used to print a message to the standard output. The message spans multiple lines and is enclosed in double quotes.
+
+   - The message that is printed is: "You're beat! and yet, you must allow, I bore my house upon my back!"
+
+The primary purpose of this code is to display a message to the console just before the `main` function is executed when the program starts. Constructor functions are often used for initializing global data or setting up certain aspects of a program before the main execution begins. In this case, it prints a poetic message to the console.
