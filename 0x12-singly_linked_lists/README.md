@@ -28,3 +28,29 @@ Here's an explanation of the code:
 5. Finally, after the loop has processed all the nodes in the linked list, the function returns the `count` variable, which represents the number of nodes in the list.
 
 This function is used to print the contents of a linked list, assuming that each node contains a string (`str`) and the length of that string (`len`). If a node's string is `NULL`, it is printed as "(nil)."
+
+# 2-add_node.c
+This code is a C header file named "list.h," which defines a data structure for singly linked lists and declares several functions related to linked lists. It appears to be a header file that can be included in a C program to work with singly linked lists. Let's break down the code:
+
+1. `#ifndef _LIST_H` and `#define _LIST_H`: These lines are standard include guards to prevent the header file from being included multiple times in the same source file. If `_LIST_H` is not defined, it defines it, and this prevents the contents of the header file from being included more than once.
+
+2. Includes:
+   - `#include <stdlib.h>`: This header file provides functions for memory allocation and deallocation, such as `malloc` and `free`.
+   - `#include <stdio.h>`: This header file is for input and output operations and is used for functions like `printf`.
+   - `#include <string.h>`: This header file includes functions for string manipulation, like `strcpy`.
+
+3. `typedef struct list_s { ... } list_t;`: This code defines a structure called `list_s`, which represents a node in a singly linked list. It contains the following members:
+   - `char *str`: A pointer to a dynamically allocated string (a `malloc`'ed string).
+   - `unsigned int len`: An unsigned integer representing the length of the string.
+   - `struct list_s *next`: A pointer to the next node in the list.
+
+   The `typedef` statement then creates an alias `list_t` for this structure, which allows you to declare variables of type `list_t` instead of `struct list_s`.
+
+4. Function Declarations:
+   - `size_t print_list(const list_t *h);`: This function is declared here but defined in another source file (likely in a corresponding ".c" file). It takes a pointer to the head of a linked list and prints the contents of the list, returning the number of nodes in the list.
+   - `size_t list_len(const list_t *h);`: Similar to `print_list`, this function is declared but not defined here. It returns the number of nodes in the linked list.
+   - `list_t *add_node(list_t **head, const char *str);`: This function is declared here as well but defined elsewhere. It is used to add a new node to the beginning of the linked list, taking a pointer to the head of the list and a string to be added.
+
+5. `#endif`: This line marks the end of the include guard. If the header file was not included before, it will define `_LIST_H` now, and if it was included already, the code inside this header file will be skipped.
+
+In summary, this header file defines a structure for singly linked lists and declares functions to manipulate and interact with these lists. The actual implementations of these functions are expected to be defined in a corresponding ".c" source file. This header file can be included in C programs that require linked list functionality.
