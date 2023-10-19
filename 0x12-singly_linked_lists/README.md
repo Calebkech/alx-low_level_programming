@@ -30,27 +30,64 @@ Here's an explanation of the code:
 This function is used to print the contents of a linked list, assuming that each node contains a string (`str`) and the length of that string (`len`). If a node's string is `NULL`, it is printed as "(nil)."
 
 # 2-add_node.c
-This code is a C header file named "list.h," which defines a data structure for singly linked lists and declares several functions related to linked lists. It appears to be a header file that can be included in a C program to work with singly linked lists. Let's break down the code:
+This code defines a C function called `add_node`, which is used to add a new node at the beginning of a singly linked list. It takes a pointer to the head of the list (`head`) and a string (`str`) that is to be added to the new node. Here's an explanation of the code:
 
-1. `#ifndef _LIST_H` and `#define _LIST_H`: These lines are standard include guards to prevent the header file from being included multiple times in the same source file. If `_LIST_H` is not defined, it defines it, and this prevents the contents of the header file from being included more than once.
+1. `#include "lists.h"`: This line includes the "lists.h" header file, which is expected to contain the necessary data structure definition and function prototypes for linked lists. This file likely defines the `list_t` structure and the required functions.
 
-2. Includes:
-   - `#include <stdlib.h>`: This header file provides functions for memory allocation and deallocation, such as `malloc` and `free`.
-   - `#include <stdio.h>`: This header file is for input and output operations and is used for functions like `printf`.
-   - `#include <string.h>`: This header file includes functions for string manipulation, like `strcpy`.
+2. The function `add_node` takes two arguments:
+   - `list_t **head`: A pointer to a pointer to the head of the linked list. This is a double pointer because the function may need to modify the `head` pointer when adding a new node.
+   - `const char *str`: A pointer to a string that will be added to the new node.
 
-3. `typedef struct list_s { ... } list_t;`: This code defines a structure called `list_s`, which represents a node in a singly linked list. It contains the following members:
-   - `char *str`: A pointer to a dynamically allocated string (a `malloc`'ed string).
-   - `unsigned int len`: An unsigned integer representing the length of the string.
-   - `struct list_s *next`: A pointer to the next node in the list.
+3. The function returns a `list_t*`, which is a pointer to the newly created node. If the operation fails (due to memory allocation issues), it returns `NULL`.
 
-   The `typedef` statement then creates an alias `list_t` for this structure, which allows you to declare variables of type `list_t` instead of `struct list_s`.
+4. Inside the function:
+   - `char *loc;`, `int len;`, and `list_t *add;` declare local variables to hold a copy of the string (`loc`), the length of the string (`len`), and the newly created node (`add`).
 
-4. Function Declarations:
-   - `size_t print_list(const list_t *h);`: This function is declared here but defined in another source file (likely in a corresponding ".c" file). It takes a pointer to the head of a linked list and prints the contents of the list, returning the number of nodes in the list.
-   - `size_t list_len(const list_t *h);`: Similar to `print_list`, this function is declared but not defined here. It returns the number of nodes in the linked list.
-   - `list_t *add_node(list_t **head, const char *str);`: This function is declared here as well but defined elsewhere. It is used to add a new node to the beginning of the linked list, taking a pointer to the head of the list and a string to be added.
+   - `add = malloc(sizeof(list_t));`: This line allocates memory for a new `list_t` node using `malloc`. If the allocation fails (i.e., if `add` is `NULL`), it returns `NULL` to indicate an error.
 
-5. `#endif`: This line marks the end of the include guard. If the header file was not included before, it will define `_LIST_H` now, and if it was included already, the code inside this header file will be skipped.
+   - `loc = strdup(str);`: This line duplicates the input string `str` using the `strdup` function, creating a new dynamically allocated string `loc`. If the duplication fails (i.e., if `loc` is `NULL`), it frees the previously allocated memory for `add` and returns `NULL`.
 
-In summary, this header file defines a structure for singly linked lists and declares functions to manipulate and interact with these lists. The actual implementations of these functions are expected to be defined in a corresponding ".c" source file. This header file can be included in C programs that require linked list functionality.
+   - A `for` loop calculates the length of the string by iterating through each character of `str` and incrementing the `len` variable accordingly.
+
+   - The `str` and `len` members of the `add` node are assigned the values of `loc` and `len`, respectively.
+
+   - `add->next = *head;` sets the `next` pointer of the new node to point to the current head of the list.
+
+   - `*head = add;` updates the `head` pointer to point to the newly added node, effectively making it the new head of the list.
+
+   - The function returns the address of the new element (`add`), which represents the newly created node.
+
+This function is used to add a new node to the beginning of a linked list, and it takes care of memory allocation and copying the input string, making it suitable for building and maintaining a singly linked list.
+
+# 3-add_node_end.c
+
+This code defines a C function called `add_node_end`, which is used to add a new node at the end of a singly linked list. It takes a pointer to the head of the list (`head`) and a string (`str`) that is to be added to the new node. Here's an explanation of the code:
+
+1. `#include "lists.h"`: This line includes the "lists.h" header file, which is expected to contain the necessary data structure definition and function prototypes for linked lists. This file likely defines the `list_t` structure and the required functions.
+
+2. The function `add_node_end` takes two arguments:
+   - `list_t **head`: A pointer to a pointer to the head of the linked list. This is a double pointer because the function may need to modify the `head` pointer when adding a new node.
+   - `const char *str`: A pointer to a string that will be added to the new node.
+
+3. The function returns a `list_t*`, which is a pointer to the head of the linked list. If the operation fails (due to memory allocation issues), it returns `NULL`.
+
+4. Inside the function:
+   - `char *loc;`, `int i;`, and `list_t *add, *last;` declare local variables to hold a copy of the string (`loc`), the length of the string (`i`), the newly created node (`add`), and a pointer to the last node in the list (`last`).
+
+   - `add = malloc(sizeof(list_t));`: This line allocates memory for a new `list_t` node using `malloc`. If the allocation fails (i.e., if `add` is `NULL`), it returns `NULL` to indicate an error.
+
+   - `loc = strdup(str);`: This line duplicates the input string `str` using the `strdup` function, creating a new dynamically allocated string `loc`. If the duplication fails (i.e., if `loc` is `NULL`), it frees the previously allocated memory for `add` and returns `NULL`.
+
+   - A `for` loop calculates the length of the string by iterating through each character of `str` and incrementing the `i` variable accordingly.
+
+   - The `str` and `len` members of the `add` node are assigned the values of `loc` and `i`, respectively.
+
+   - `add->next = NULL;` sets the `next` pointer of the new node to `NULL` since it's being added at the end.
+
+   - The code then checks if the list is empty (i.e., if `*head` is `NULL`). If it's empty, the `head` pointer is updated to point to the newly created node (`add`), making it the new head of the list.
+
+   - If the list is not empty, it iterates through the list to find the last node by starting from the head and following the `next` pointers until it reaches the end. Once the last node is found, it updates its `next` pointer to point to the newly created node, effectively adding the new node at the end of the list.
+
+   - The function returns the address of the head of the list (`*head`).
+
+This function is used to add a new node at the end of a linked list, and it takes care of memory allocation and copying the input string. If the list is initially empty, it updates the head pointer, and if not, it traverses the list to find the last node and adds the new node to the end.
