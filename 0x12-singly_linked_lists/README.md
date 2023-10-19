@@ -91,3 +91,36 @@ This code defines a C function called `add_node_end`, which is used to add a new
    - The function returns the address of the head of the list (`*head`).
 
 This function is used to add a new node at the end of a linked list, and it takes care of memory allocation and copying the input string. If the list is initially empty, it updates the head pointer, and if not, it traverses the list to find the last node and adds the new node to the end.
+
+# 4-free_list.c
+
+This code defines a C function called `add_node_end`, which is used to add a new node at the end of a singly linked list. It takes a pointer to the head of the list (`head`) and a string (`str`) that is to be added to the new node. Here's an explanation of the code:
+
+1. `#include "lists.h"`: This line includes the "lists.h" header file, which is expected to contain the necessary data structure definition and function prototypes for linked lists. This file likely defines the `list_t` structure and the required functions.
+
+2. The function `add_node_end` takes two arguments:
+   - `list_t **head`: A pointer to a pointer to the head of the linked list. This is a double pointer because the function may need to modify the `head` pointer when adding a new node.
+   - `const char *str`: A pointer to a string that will be added to the new node.
+
+3. The function returns a `list_t*`, which is a pointer to the head of the linked list. If the operation fails (due to memory allocation issues), it returns `NULL`.
+
+4. Inside the function:
+   - `char *loc;`, `int i;`, and `list_t *add, *last;` declare local variables to hold a copy of the string (`loc`), the length of the string (`i`), the newly created node (`add`), and a pointer to the last node in the list (`last`).
+
+   - `add = malloc(sizeof(list_t));`: This line allocates memory for a new `list_t` node using `malloc`. If the allocation fails (i.e., if `add` is `NULL`), it returns `NULL` to indicate an error.
+
+   - `loc = strdup(str);`: This line duplicates the input string `str` using the `strdup` function, creating a new dynamically allocated string `loc`. If the duplication fails (i.e., if `loc` is `NULL`), it frees the previously allocated memory for `add` and returns `NULL`.
+
+   - A `for` loop calculates the length of the string by iterating through each character of `str` and incrementing the `i` variable accordingly.
+
+   - The `str` and `len` members of the `add` node are assigned the values of `loc` and `i`, respectively.
+
+   - `add->next = NULL;` sets the `next` pointer of the new node to `NULL` since it's being added at the end.
+
+   - The code then checks if the list is empty (i.e., if `*head` is `NULL`). If it's empty, the `head` pointer is updated to point to the newly created node (`add`), making it the new head of the list.
+
+   - If the list is not empty, it iterates through the list to find the last node by starting from the head and following the `next` pointers until it reaches the end. Once the last node is found, it updates its `next` pointer to point to the newly created node, effectively adding the new node at the end of the list.
+
+   - The function returns the address of the head of the list (`*head`).
+
+This function is used to add a new node at the end of a linked list, and it takes care of memory allocation and copying the input string. If the list is initially empty, it updates the head pointer, and if not, it traverses the list to find the last node and adds the new node to the end.
