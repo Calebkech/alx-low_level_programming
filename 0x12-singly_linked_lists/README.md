@@ -145,3 +145,34 @@ Here's an explanation of the code:
 The primary purpose of this code is to display a message to the console just before the `main` function is executed when the program starts. Constructor functions are often used for initializing global data or setting up certain aspects of a program before the main execution begins. In this case, it prints a poetic message to the console.
 
 # 101-hello_holberton.asm
+The code you've posted appears to be written in Assembly language for the x86-64 architecture, and it calls the `printf` function to print a message to the console. Let's break down the code:
+
+1. `extern printf`: This line declares that the `printf` function is defined in another source file or library. It informs the assembler that the definition of `printf` will be resolved during linking, as `printf` is a standard C library function for formatted output.
+
+2. `.section .text` and `.global main`: These directives specify the beginning of the text (code) section and declare the `main` function as a global symbol, which is the entry point for the program.
+
+3. `main:`: This label marks the beginning of the `main` function.
+
+4. `push rbp`: This instruction pushes the value of the base pointer (rbp) onto the stack. It's a common practice to save the base pointer and restore it later to maintain the stack frame.
+
+5. `mov rdi, format`: This instruction moves the address of the format string (`format`) into the `rdi` register. `rdi` is the register typically used to pass the first argument to functions in the x86-64 calling convention.
+
+6. `mov rsi, message`: This instruction moves the address of the message string (`message`) into the `rsi` register. `rsi` is the register typically used to pass the second argument to functions.
+
+7. `mov rax, 0`: This instruction sets the value of the `rax` register to 0. In the context of the x86-64 calling convention, `rax` is used to indicate the number of vector registers used (typically for floating-point operations).
+
+8. `call printf`: This instruction calls the `printf` function. The arguments have been loaded into the `rdi` and `rsi` registers, and the function is invoked. `printf` is expected to print the message using the provided format string and return the number of characters printed.
+
+9. `pop rbp`: This instruction pops the previously saved base pointer value from the stack, restoring the stack frame.
+
+10. `mov rax, 0`: This sets the return value in the `rax` register to 0, indicating that the program is exiting successfully.
+
+11. `ret`: This instruction is used to return from the `main` function, effectively ending the program.
+
+12. `.section .data`: This directive marks the beginning of the data section where constants and initialized data are stored.
+
+13. `message: db "Hello, Holberton", 0`: This line defines a null-terminated character string named `message`. It contains the text "Hello, Holberton." The `db` directive is used to define a sequence of bytes, and the `0` at the end null-terminates the string.
+
+14. `format: db "%s", 10, 0`: This line defines another string named `format`. It contains the format string `"%s"` followed by the newline character (`10`) and a null terminator (`0`). This format string is intended for `printf` to print the message string.
+
+The code as written is minimal and assumes that the `printf` function will be available during the linking stage. It sets up the necessary registers and arguments for `printf`, calls it, and then returns from the `main` function. The expected output would be "Hello, Holberton" followed by a newline character.
